@@ -25,6 +25,7 @@ Na tela de login, informe o email e clique em **Esqueci minha senha**. O link en
 O painel **Gerenciamento de usuários** aparece somente para o perfil master. Ele permite criar usuários como `viewer` ou `editor`, definir uma senha temporária e revogar acessos. No primeiro login, o usuário é obrigado a escolher uma senha nova antes de acessar qualquer OS. A senha temporária deve ser comunicada por um canal seguro.
 
 As operações administrativas são executadas pela Edge Function `manage-users`; a chave `service_role` nunca é exposta no navegador e nenhum email de convite é necessário.
+O painel do master permite criar usuários, alternar posteriormente a permissão entre Visualização e Edição e revogar acessos. Contas master não podem ser modificadas por esse painel.
 
 Depois de instalar e autenticar o Supabase CLI, publique a função:
 

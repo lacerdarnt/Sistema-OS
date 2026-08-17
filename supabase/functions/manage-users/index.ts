@@ -99,6 +99,38 @@ Deno.serve(async (req) => {
       return json({ message: existing ? "Usuário reativado com uma nova senha temporária." : "Usuário criado com sucesso." });
     }
 
+    if (action === "update_role") {
+      const role = body.role === "editor" ? "editor" : body.role === "viewer" ? "viewer" : null;
+      if (!role) return json({ error: "Permissão inválida." }, 400);
+
+      const [{ data: targetProfile, error: profileLookupError }, { data: allowedUser, error: allowedLookupError }] = await Promise.all([
+        admin.from("profiles").select("id,is_master,role").eq("email", email).maybeSingle(),
+        admin.from("allowed_emails").select("role").eq("email", email).maybeSingle(),
+      ]);
+      if (profileLookupError || allowedLookupError) throw profileLookupError || allowedLookupError;
+      if (!allowedUser) return json({ error: "Usuário autorizado não encontrado." }, 404);
+      if (targetProfile?.is_master) return json({ error: "A permissão de um usuário master não pode ser alterada." }, 400);
+
+      const { error: allowUpdateError } = await admin.from("allowed_emails").update({ role }).eq("email", email);
+      if (allowUpdateError) throw allowUpdateError;
+      if (targetProfile?.id) {
+        const { error: profileUpdateError } = await admin.from("profiles").update({ role }).eq("id", targetProfile.id);
+        if (profileUpdateError) {
+          await admin.from("allowed_emails").update({ role: allowedUser.role }).eq("email", email);
+          throw profileUpdateError;
+        }
+      }
+
+      await admin.from("audit_log").insert({
+        user_id: caller.id,
+        action: "user_role_updated",
+        table_name: "profiles",
+        record_id: email,
+        changes: { from: targetProfile?.role || allowedUser.role, to: role },
+      });
+      return json({ message: `Permissão alterada para ${role === "editor" ? "Edição" : "Visualização"}.` });
+    }
+
     if (action === "revoke") {
       const { data: targetProfile } = await admin.from("profiles").select("id,is_master").eq("email", email).maybeSingle();
       if (targetProfile?.is_master) return json({ error: "Não é permitido revogar outro usuário master." }, 400);
