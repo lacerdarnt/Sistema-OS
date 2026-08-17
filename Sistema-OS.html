@@ -19,6 +19,22 @@
 #appShell>main{max-width:none;margin:0;padding:0}
 .os-tabs{display:flex;gap:7px;overflow-x:auto;padding:3px 0 12px;scrollbar-width:thin}.os-tabs .btn{white-space:nowrap;border:1px solid var(--line);background:#fff}.os-tabs .btn.active{background:var(--primary);border-color:var(--primary);color:#fff}.os-tab-panel{display:none}.os-tab-panel.active{display:block}.subsection-title{font-size:14px;margin:4px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}#osSummary{position:sticky;top:72px;z-index:7}#osSummary .content{padding-top:10px;padding-bottom:10px}.locked-notice{display:none;background:#fee4e2;color:#912018;padding:10px 12px;border-radius:9px;margin-top:9px;font-size:13px;font-weight:700}.os-locked .locked-notice{display:block}
 @media(max-width:750px){#appShell{grid-template-columns:1fr;margin-top:10px}#sideMenu{position:sticky;top:112px;z-index:8;display:flex;gap:7px;margin-bottom:12px;padding:8px}#sideMenu .menu-title{display:none}#sideMenu button{margin:0;text-align:center}}
+
+/* Layout responsivo da aplicação */
+html,body{max-width:100%;overflow-x:hidden}button,input,select,textarea{max-width:100%;min-width:0}.grid>*,.head>*,.header-main>*,#appShell>*,.check-row>*,.db-item>*{min-width:0}.brand,.pill,.db-item b,.db-item small{overflow-wrap:anywhere}.btn{max-width:100%;line-height:1.25}.content{min-width:0}
+@media(max-width:1050px) and (min-width:751px){#appShell{grid-template-columns:165px minmax(0,1fr);gap:12px}.head{max-width:none}.top-actions{max-width:560px}#osSummary{top:83px}}
+@media(max-width:750px){
+  body{font-size:14px}header{position:static;padding:10px}.head{display:grid;gap:10px}.header-main{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin:0}.brand{font-size:16px}.brand small{font-size:11px}.header-main #userBadge{grid-column:1/-1;margin-left:0!important;width:100%;text-align:center}.pill{font-size:11px;white-space:normal}
+  .top-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.top-actions .btn{width:100%;min-height:42px;padding:8px 6px;font-size:12px;white-space:normal}.top-actions #logoutBtn{grid-column:1/-1}
+  #authCard{width:auto!important;margin:20px 10px 0!important}.card{border-radius:11px;margin-bottom:10px}.card h2{padding:12px;font-size:15px}.content{padding:12px}
+  #appShell{display:block;max-width:100%;margin:0;padding:0 8px 72px}#appShell>main{width:100%}#sideMenu{position:sticky;top:0;z-index:9;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:0 -8px 10px;padding:8px;border-radius:0}#sideMenu .menu-title{display:none}#sideMenu button{width:100%;min-height:42px;margin:0;padding:8px 5px;text-align:center;white-space:normal}
+  #osSummary{position:static;top:auto}.grid{grid-template-columns:1fr;gap:10px}.c12,.c8,.c6,.c4,.c3,.c2{grid-column:1/-1!important}
+  .os-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;overflow:visible;padding:0 0 10px}.os-tabs .btn{width:100%;min-height:44px;padding:8px 5px;white-space:normal}.os-tabs .btn:last-child:nth-child(odd){grid-column:1/-1}
+  .check-row{grid-template-columns:minmax(0,1fr);gap:8px;padding:12px 0}.check-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}.check-option{min-height:42px;padding:8px;font-size:12px;overflow-wrap:anywhere}.check-row>.item-obs{width:100%;min-height:42px}
+  .photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.sigbox canvas{height:150px}.sigtools .btn{min-height:40px}
+  .actions,.db-toolbar,.db-actions{display:grid;grid-template-columns:minmax(0,1fr);width:100%}.actions .btn,.actions>label.btn,.db-toolbar .btn,.db-toolbar>label.btn,.db-actions .btn{width:100%;min-height:42px;margin:0;text-align:center}.db-toolbar input{width:100%;flex:none}.db-item{grid-template-columns:minmax(0,1fr);gap:8px;padding:11px}.db-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:380px){.top-actions{grid-template-columns:1fr}.top-actions #logoutBtn{grid-column:auto}.os-tabs{grid-template-columns:1fr}.os-tabs .btn:last-child:nth-child(odd){grid-column:auto}.photo-grid{grid-template-columns:1fr}.check-options{grid-template-columns:1fr}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
