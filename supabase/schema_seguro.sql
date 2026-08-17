@@ -56,6 +56,22 @@ alter table public.ordens add column if not exists sig_entrada_url text;
 alter table public.ordens add column if not exists sig_saida_url text;
 alter table public.ordens add column if not exists sig_tecnico_url text;
 
+-- Converte instalações antigas, nas quais fotos era text[], para o formato
+-- JSON usado para separar imagens de check-in e check-out. É seguro executar
+-- novamente quando a coluna já estiver em jsonb.
+alter table public.ordens alter column fotos drop default;
+alter table public.ordens alter column fotos type jsonb
+using (
+  case
+    when fotos is null then jsonb_build_object('entrada', '[]'::jsonb, 'saida', '[]'::jsonb)
+    when jsonb_typeof(to_jsonb(fotos)) = 'array'
+      then jsonb_build_object('entrada', to_jsonb(fotos), 'saida', '[]'::jsonb)
+    else to_jsonb(fotos)
+  end
+);
+alter table public.ordens alter column fotos
+set default jsonb_build_object('entrada', '[]'::jsonb, 'saida', '[]'::jsonb);
+
 -- ============================================================================
 -- 3. TABELA DE AUDITORIA
 -- ============================================================================

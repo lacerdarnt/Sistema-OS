@@ -28,6 +28,20 @@ alter table public.ordens add column if not exists sig_entrada_url text;
 alter table public.ordens add column if not exists sig_saida_url text;
 alter table public.ordens add column if not exists sig_tecnico_url text;
 
+-- Migração para bancos antigos onde fotos era text[].
+alter table public.ordens alter column fotos drop default;
+alter table public.ordens alter column fotos type jsonb
+using (
+  case
+    when fotos is null then jsonb_build_object('entrada', '[]'::jsonb, 'saida', '[]'::jsonb)
+    when jsonb_typeof(to_jsonb(fotos)) = 'array'
+      then jsonb_build_object('entrada', to_jsonb(fotos), 'saida', '[]'::jsonb)
+    else to_jsonb(fotos)
+  end
+);
+alter table public.ordens alter column fotos
+set default jsonb_build_object('entrada', '[]'::jsonb, 'saida', '[]'::jsonb);
+
 create or replace function public.handle_new_user()
 returns trigger language plpgsql security definer set search_path = public
 as $$
