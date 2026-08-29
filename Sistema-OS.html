@@ -43,6 +43,35 @@ html,body{max-width:100%;overflow-x:hidden}button,input,select,textarea{max-widt
 }
 @media(max-width:380px){.top-actions{grid-template-columns:repeat(5,minmax(0,1fr))}.top-actions .btn::after{font-size:9px}.os-tabs{display:flex}.os-tabs .btn{min-width:88px}}
 @media(max-width:750px){body.users-view .top-actions #logoutBtn,body.consulta-view .top-actions #logoutBtn{grid-column:1/-1}}
+
+.c2{grid-column:span 2}
+
+/* Layout final: desktop amplo, notebook/tablet e celular */
+@media(min-width:1101px){
+  .head{width:min(100%,1600px);max-width:none;padding-inline:24px}
+  #appShell{width:min(100%,1600px);max-width:none;grid-template-columns:220px minmax(0,1fr);gap:24px;padding:0 24px 80px}
+  #appShell>main{width:100%}
+  .card{margin-bottom:18px}.card h2{padding:15px 18px}.content{padding:18px}
+  .grid{gap:14px 16px}input,select,textarea{padding:11px 12px}
+}
+@media(min-width:751px) and (max-width:1100px){
+  .head{width:100%;max-width:none}
+  #appShell{width:100%;max-width:none;grid-template-columns:170px minmax(0,1fr);gap:12px;padding-inline:12px}
+  .top-actions{max-width:560px}.top-actions .btn{padding-inline:8px}
+}
+@media(max-width:750px){
+  html{-webkit-text-size-adjust:100%}
+  body{width:100%;min-width:0}
+  #appShell[style]{display:block!important}
+  #appShell[style*="display: none"],#appShell[style*="display:none"]{display:none!important}
+  #appShell{width:100%;max-width:none;padding-inline:max(8px,env(safe-area-inset-left));padding-bottom:max(72px,env(safe-area-inset-bottom))}
+  header{padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right))}
+  .top-actions{padding-left:max(6px,env(safe-area-inset-left));padding-right:max(6px,env(safe-area-inset-right))}
+  .card,.content,.grid,.os-tab-panel{width:100%;min-width:0}
+  input,select,textarea{font-size:16px}
+  textarea{min-height:105px}
+  .btn,.check-option{touch-action:manipulation}
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
