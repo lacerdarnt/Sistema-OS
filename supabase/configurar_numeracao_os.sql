@@ -33,8 +33,8 @@ security definer
 set search_path = public
 as $$
 begin
-  if not public.is_editor() then
-    raise exception 'Usuário sem permissão para criar OS.' using errcode = '42501';
+  if not public.has_permission('create') then
+    raise exception 'Usuário sem permissão para incluir OS.' using errcode = '42501';
   end if;
 
   return 'OS-' || lpad(nextval('public.os_numero_seq')::text, 6, '0');
@@ -43,4 +43,3 @@ $$;
 
 revoke all on function public.next_os_number() from public, anon;
 grant execute on function public.next_os_number() to authenticated;
-
