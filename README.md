@@ -65,3 +65,15 @@ A OS mantém número, data de entrada e status fixos no topo. O restante é divi
 Fotos de check-in e check-out são reduzidas no navegador para até 1280 px e JPEG com qualidade compactada antes do upload. Elas ficam no bucket privado `os-data`, enquanto o banco guarda somente os caminhos dos arquivos. Uma cópia comprimida pode permanecer no IndexedDB para funcionamento offline; esse armazenamento interno do navegador não aparece na galeria do celular. Fotos removidas são apagadas do bucket no próximo salvamento bem-sucedido.
 
 Alternativas: Netlify, Cloudflare Pages.
+
+## Numeração definitiva das OS
+
+Execute `supabase/corrigir_numeracao_definitiva.sql` no SQL Editor do Supabase após os demais scripts. Se reaplicar scripts antigos, reaplique esta migração por último. O envio ao GitHub não executa SQL no Supabase.
+
+A migração torna `os_numero` a chave primária e preserva os UUIDs existentes como identificadores únicos. A tela mostra uma previsão sem consumir o contador. O banco atribui o número definitivo apenas na inserção, com um contador transacional: salvamentos concorrentes recebem números diferentes, falhas não avançam o contador e exclusões não permitem reutilizar números após esta migração. Se outro dispositivo salvar primeiro, o número definitivo pode mudar ao salvar.
+
+O rascunho é restaurado após F5. Novas OS nunca atualizam outra somente porque o número previsto coincide; atualizações exigem o UUID da OS salva na nuvem. Registros locais recebem o número definitivo ao serem enviados à nuvem. A unicidade entre dispositivos exige conexão com o Supabase.
+
+Verifique após aplicar: Nova OS → F5 → Nova OS mantém o número; salvar → Nova OS avança; duas sessões salvando ao mesmo tempo recebem números distintos; editar OS salva mantém o número.
+
+Testes: `node test-numeracao.cjs`. A validação SQL local (`node test-numeracao-sql.cjs`) requer o pacote `@electric-sql/pglite` disponível no ambiente Node.
