@@ -84,6 +84,69 @@ body.users-view #pdfCheckinBtnTopo,body.consulta-view #pdfCheckinBtnTopo{display
   body{background:#fff}
 }
 </style>
+<style id="darkTheme">
+/* Tema de tela; relatórios e assinaturas exportadas preservam suas cores. */
+@media screen {
+  :root {
+    color-scheme:dark;
+    --bg:#141416;
+    --card:#1e1e21;
+    --soft:#242427;
+    --ink:#e5e5e7;
+    --muted:#aaaab2;
+    --line:#3c3c43;
+    --primary:#f19a9a;
+    --ok:#37373e;
+    --danger:#ffb1b1;
+    --field:#19191c;
+    --accent-soft:#382629;
+  }
+  body{background:var(--bg);color:var(--ink)}
+  header,#sideMenu,.top-actions{background:#111113;color:var(--ink)}
+  header{border-bottom:1px solid #303035;box-shadow:0 3px 14px #0003}
+  .brand small,#sideMenu .menu-title{color:var(--muted)}
+  .card{background:var(--card);box-shadow:0 4px 16px #0002}
+  .card h2,.sigtools{background:var(--soft);color:var(--ink)}
+  label,.subsection-title,.check-row strong{color:#cfcfd5}
+  input,select,textarea{background:var(--field);border-color:var(--line);color:var(--ink);caret-color:var(--primary)}
+  input::placeholder,textarea::placeholder{color:#92929d;opacity:1}
+  input:focus,select:focus,textarea:focus{border-color:var(--primary);outline:2px solid #f19a9a33;outline-offset:1px}
+  input:disabled,select:disabled,textarea:disabled{background:#28282d;color:#aaaab2}
+  input[readonly]{background:#28282d;color:#dedee3}
+  input[type=checkbox],input[type=radio]{accent-color:var(--primary)}
+  .btn{background:#303036;color:var(--ink);transition:background-color .15s,border-color .15s,color .15s}
+  .btn.primary{background:var(--primary);color:#231719}
+  .btn.ok{background:var(--ok);color:#f0f0f2;border:1px solid #53535d}
+  .btn.danger{background:var(--accent-soft);color:var(--danger);border:1px solid #694044}
+  .btn.outline,.os-tabs .btn{background:var(--soft);border:1px solid var(--line);color:var(--ink)}
+  .os-tabs .btn.active,#sideMenu button.active{background:var(--accent-soft);border-color:var(--primary);color:#ffc2c2}
+  #sideMenu button{color:#cfcfd5;border-color:var(--line)}
+  .btn:focus-visible,.check-option:focus-within{outline:2px solid var(--primary);outline-offset:3px}
+  .btn:disabled{opacity:.6;cursor:not-allowed}
+  .pill{background:#302528;color:#ffc2c2;border:1px solid #584045}
+  .check-option,.permission-list label{background:var(--field);color:#cfcfd5;border-color:var(--line)}
+  .check-option:has(input:checked){background:var(--accent-soft);border-color:var(--primary);color:#ffc2c2}
+  .photo{background:#28282d}
+  .db-item{background:#212124;border-color:var(--line)}
+  .db-item small,.notice,.db-count,.empty{color:var(--muted)}
+  .locked-notice,.permission-notice{background:var(--accent-soft);color:#ffc2c2;border:1px solid #694044}
+  #authMessage,#usersMessage{color:#f5b0b0!important}
+  /* Inversão apenas visual: a assinatura exportada continua preta. */
+  .sigbox{background:var(--field);border-color:var(--line)}
+  .sigbox canvas{background:#fff;filter:invert(.9)}
+  ::selection{background:#714147;color:#fff}
+  html{scrollbar-color:#55555e var(--bg)}
+  @media(hover:hover){
+    .btn:hover{background:#404048}
+    .btn.primary:hover{background:#ffb1b1}
+    .btn.ok:hover{background:#484850}
+    .btn.danger:hover{background:#513034}
+    .btn.outline:hover,.os-tabs .btn:hover{background:#333338;border-color:#64646e}
+    #sideMenu button:hover{background:#29292f;border-color:#64646e}
+    #sideMenu button.active:hover,.os-tabs .btn.active:hover{background:#483034;border-color:var(--primary)}
+  }
+}
+</style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
