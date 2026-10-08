@@ -136,7 +136,14 @@ body.users-view #pdfCheckinBtnTopo,body.consulta-view #pdfCheckinBtnTopo{display
   .sigbox canvas{background:#fff;filter:invert(.9)}
   ::selection{background:#714147;color:#fff}
   html{scrollbar-color:#55555e var(--bg)}
+  /* Cores exclusivas dos botões superiores. */
+  #novaBtnTopo,#salvarBtnTopo{background:#a7dfb0;color:#17251a;border:1px solid #a7dfb0}
+  #consultarBtnTopo{background:#fff;color:#232327;border:1px solid #fff}
+  #logoutBtn{background:#c94343;color:#fff;border:1px solid #c94343}
   @media(hover:hover){
+    #novaBtnTopo:hover,#salvarBtnTopo:hover{background:#bdebc4;border-color:#bdebc4}
+    #consultarBtnTopo:hover{background:#e9e9ed;border-color:#e9e9ed}
+    #logoutBtn:hover{background:#bd3838;border-color:#bd3838}
     .btn:hover{background:#404048}
     .btn.primary:hover{background:#ffb1b1}
     .btn.ok:hover{background:#484850}
